@@ -1,0 +1,30 @@
+[eval] checkpoint 001000 ...
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 1300.06it/s]
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 1109.75it/s]
+[eval] ckpt 001000: prior_mae=0.8777 posterior_mae=0.8778 raw_mae=0.3989 rmse=1.0922
+[eval] checkpoint 002000 ...
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 992.09it/s]
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 958.59it/s]
+[eval] ckpt 002000: prior_mae=0.9180 posterior_mae=0.9181 raw_mae=0.4197 rmse=1.1098
+[eval] checkpoint 003000 ...
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 866.82it/s]
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 951.90it/s]
+[eval] ckpt 003000: prior_mae=0.9863 posterior_mae=0.9867 raw_mae=0.4412 rmse=1.2095
+[eval] checkpoint 004000 ...
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 1031.05it/s]
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 1256.16it/s]
+[eval] ckpt 004000: prior_mae=1.0198 posterior_mae=1.0198 raw_mae=0.4570 rmse=1.2723
+[eval] checkpoint 005000 ...
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 911.46it/s]
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 1110.78it/s]
+[eval] ckpt 005000: prior_mae=0.9214 posterior_mae=0.9215 raw_mae=0.4247 rmse=1.1750
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 850.30it/s]
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 873.22it/s]
+[eval] figures written to outputs/exp_act_68ep/eval
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 1138.60it/s]
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 935.03it/s]
+[eval] chunk figure: outputs/exp_act_68ep/eval/chunks/well_fitted.png (dataset index 2620)
+[eval] chunk figure: outputs/exp_act_68ep/eval/chunks/mean_bias.png (dataset index 22860)
+[eval] chunk figure: outputs/exp_act_68ep/eval/chunks/reversal_omission.png (dataset index 60)
+[eval] chunk figure: outputs/exp_act_68ep/eval/chunks/long_horizon_degradation.png (dataset index 6380)
+[eval] chunk figure: outputs/exp_act_68ep/eval/chunks/single_joint_anomaly.png (dataset index 10960)

@@ -2,17 +2,20 @@
 
 算法实现代码目录。
 
-参考仓库（AI-World-Models-Study）为纯笔记仓库，不包含代码；但 ACT 是可运行的算法，因此预留此目录，随学习进度逐步添加：
+**实现路线已确定：以 [HuggingFace LeRobot](https://github.com/huggingface/lerobot) 的 ACT 实现为准**（它封装了数据集格式、训练/评估脚本与多种策略，比官方 `tonyzhaozh/act` 更便于复现和后续扩展对比）。
 
 ```
 code/
-├── act/              ← ACT 实现（可先 clone 官方仓库 tonyzhaozh/act，再逐行阅读/复现）
-├── requirements.txt  ← 依赖清单（随实现添加）
-└── README.md         ← 本文件
+├── README.md                   ← 本文件
+├── reproduction_act_aloha.md   ← ACT 复现实验记录（LeRobot + aloha_mobile_cabinet，5k 训练/评测闭环）
+├── data/                       ← LeRobot 数据集（gitignored，含本地复现实验数据）
+└── outputs/                    ← 实验产物（act_aloha_5k、act_aloha_68ep：曲线图/日志/评测结果）
 ```
 
-建议学习顺序：
+**复现状态：✅ 已复现**——完整实验记录见 [reproduction_act_aloha.md](reproduction_act_aloha.md)；实验数据（数据集、checkpoint、日志）不提交到 git（见根目录 `.gitignore` 的 `data/`、`notebooks/`）。
 
-1. `git clone https://github.com/tonyzhaozh/act.git` 到本目录
-2. 通读 `policy.py`（ACT 模型定义）与 `train.py`（训练循环），对照 `papers/01-act/` 笔记
-3. 在仿真环境（如 ALOHA 提供的 sim）中跑通训练与评估
+学习路径：
+
+1. `pip install lerobot`，clone [lerobot](https://github.com/huggingface/lerobot) 参考其教程
+2. 用 ACT policy 配置跑通训练与评估，对照 `papers/01-act/` 笔记
+3. 笔记中"动手实现 / 复现实验"章节以 LeRobot 的实现细节为准

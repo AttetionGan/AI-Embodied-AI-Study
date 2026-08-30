@@ -25,7 +25,7 @@
 
 | # | 论文 | 状态 |
 |---|------|------|
-| 1 | [Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware](papers/01-act/Learning%20Fine-Grained%20Bimanual%20Manipulation%20with%20Low-Cost%20Hardware.md) — Zhao et al., RSS 2023 | 🔍 阅读中 |
+| 1 | [Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware](papers/01-act/Learning%20Fine-Grained%20Bimanual%20Manipulation%20with%20Low-Cost%20Hardware.md) — Zhao et al., RSS 2023 | ✅ 已完成 |
 
 > 状态: 📝 待读 / 🔍 阅读中 / ✅ 已完成
 
@@ -36,8 +36,8 @@
 ACT 是一条主线，建议按以下顺序推进（读完在对应项打勾，并把新论文加入上方清单）：
 
 - [ ] **预备知识**：Transformer、CVAE（条件变分自编码器）、行为克隆（BC）/ 模仿学习基础
-- [x] **核心论文**：ACT (RSS 2023) — 论文阅读 + 公式推导
-- [ ] **动手实现**：跑通官方代码 [tonyzhaozh/act](https://github.com/tonyzhaozh/act)，在仿真中复现
+- [x] **核心论文**：ACT (RSS 2023) — 论文阅读 + 公式推导（笔记见 [papers/01-act/](papers/01-act/)）
+- [x] **动手实现**：用 [LeRobot](https://github.com/huggingface/lerobot) 复现 ACT（✅ 已复现，记录见 [code/reproduction_act_aloha.md](code/reproduction_act_aloha.md)）
 - [ ] **对比算法**：Diffusion Policy (Chi et al., RSS 2023)
 - [ ] **延伸方向**：VLA（如 RT-2、OpenVLA）等视觉语言动作模型
 
@@ -49,3 +49,5 @@ ACT 是一条主线，建议按以下顺序推进（读完在对应项打勾，�
 |------|------|
 | 2026-08-23 | 初始化仓库结构，创建笔记模板 |
 | 2026-08-23 | 添加第一篇论文：Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware（Zhao et al., RSS 2023），创建骨架 |
+| 2026-08-30 | 完成 ACT 论文精读笔记（含公式推导、框架图、论文/LeRobot 实现核对表、消融分析）；实现路线定为 LeRobot 并标注已复现 |
+| 2026-08-30 | 新增 ACT 复现实验记录 [code/reproduction_act_aloha.md](code/reproduction_act_aloha.md)（LeRobot + aloha_mobile_cabinet，5k 训练/评测闭环） |
