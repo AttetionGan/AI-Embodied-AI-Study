@@ -63,45 +63,44 @@
 
 ### 数据流（训练阶段，CVAE Encoder 参与）
 
-```
-        演示数据集 D（每任务 50 条，50Hz，每集约 400–700 步）
-        │
-        ├── 观测 o_t = { 4×RGB(480×640×3), qpos(14) }        (动作目标 = 跟随臂目标关节位置,14维)
-        │
-        ├── 动作块 a_t:t+k (k×14) ──┐
-        │                          ▼
-        │            CVAE Encoder q_φ(z | a_t:t+k, q̄_t)     ← 只吃 qpos+动作，不吃图像！
-        │                          │
-        │              ┌───────────┴───────────┐
-        │              ▼                       ▼
-        │          z_μ, z_σ (32)         重参数化采样 z (32)
-        │                                          │
-        ▼                                          ▼
-  ┌──────────────────────────────────────────────────────────────┐
-  │  策略（CVAE Decoder）π_θ(â_t:t+k | o_t, z)                     │
-  │  4×ResNet18 ──► 15×20×512 ──► 展平300×512 + 2D正弦位置编码       │
-  │  4 相机拼接：1200×512                                         │
-  │  + qpos(14→512) + z(32→512) → 1202×512                       │
-  │  Transformer Encoder ×4（跨视角融合）                          │
-  │  Transformer Decoder ×7（交叉注意力，query=固定位置编码 k×512）  │
-  │  MLP → â_t:t+k (k×14 目标关节位置)                             │
-  └──────────────────────────────────────────────────────────────┘
-        │
-        ▼
-  Loss = L1(â, a)·mask + β·KL(q_φ ‖ N(0,I))      β = 10
+```mermaid
+flowchart TD
+    D["演示数据集 D<br/>每任务 50 条，50Hz，每集约 400–700 步"]
+    D --> OBS["观测 o_t = { 4×RGB(480×640×3), qpos(14) }<br/>动作目标 = 跟随臂目标关节位置（14 维）"]
+    D --> ACT["动作块 a_t:t+k (k×14)"]
+
+    ACT --> Q["CVAE Encoder q_φ(z | a_t:t+k, q̄_t)<br/>只吃 qpos + 动作，不吃图像"]
+    Q --> ZMU["z_μ, z_σ (32)"]
+    ZMU --> Z["重参数化采样 z (32)"]
+
+    OBS --> V
+    OBS --> FUS
+    Z --> FUS
+
+    subgraph POLICY["策略（CVAE Decoder）π_θ(â_t:t+k | o_t, z)"]
+        direction TB
+        V["4×ResNet18（ImageNet 预训练）<br/>480×640×3 → 15×20×512 特征图"]
+        F["展平 300×512 + 2D 正弦位置编码"]
+        FUS["4 相机拼接：1200×512<br/>+ qpos(14→512) + z(32→512) → 1202×512"]
+        E["Transformer Encoder ×4（跨视角融合）"]
+        DEC["Transformer Decoder ×7<br/>交叉注意力：query = 固定位置编码 k×512"]
+        MLP["MLP → â_t:t+k（k×14 目标关节位置）"]
+        V --> F --> FUS --> E --> DEC --> MLP
+    end
+
+    MLP --> LOSS["Loss = L1(â, a)·mask + β·KL(q_φ ‖ N(0,I))<br/>β = 10"]
 ```
 
 > **推理阶段**：丢弃 Encoder，z=0 确定性解码：`o_t → ResNet18×4 → TF-Enc×4 → TF-Dec×7 → â_t:t+k`；每步查询（可选时间集成）后，由低层高频 PID（Dynamixel 内）跟踪目标关节位置。详见 §8。
 
 ### 训练与采集流程（纯离线 IL，无在线交替）
 
-```
-[数据采集]  ALOHA 遥操作 @50Hz：每条 8–14s（400–700 步）；每任务 50 条（Thread Velcro 100 条）
-   │        ≈10–20 分钟有效数据/任务；含重置与失误共 30–60 分钟
-   ▼
-[离线训练]  ACT 从零训练（~80M 参数，单卡 RTX 2080 Ti ~5 小时）；选 val loss 最优 checkpoint
-   ▼
-[部署评估]  z=0 确定性 rollout，50Hz 控制；可选 temporal ensembling 提升平滑度
+```mermaid
+flowchart TD
+    A["① 数据采集：ALOHA 遥操作 @50Hz<br/>每条 8–14s（400–700 步）；每任务 50 条（Thread Velcro 100 条）<br/>≈10–20 分钟有效数据/任务；含重置与失误共 30–60 分钟"]
+    B["② 离线训练：ACT 从零训练<br/>~80M 参数，单卡 RTX 2080 Ti ~5 小时<br/>选 val loss 最优 checkpoint"]
+    C["③ 部署评估：z=0 确定性 rollout，50Hz 控制<br/>可选 temporal ensembling 提升平滑度"]
+    A --> B --> C
 ```
 
 ---
