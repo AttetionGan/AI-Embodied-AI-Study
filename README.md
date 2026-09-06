@@ -2,6 +2,19 @@
 
 具身智能（Embodied AI）算法的阅读笔记与公式推导。从 ACT（Action Chunking with Transformers）出发，按学习路线逐篇推进。
 
+> **English intro**: Personal deep-study notes & reproductions on Embodied AI / imitation learning, from ACT to VLA (SmolVLA). Each paper note comes with math derivations, architecture diagrams, **paper-vs-code discrepancy tables**（论文与官方实现差异核对表）, ablations, and honest reproduction records with clear evidence boundaries（证据边界）.
+
+## 这个仓库有什么不一样？（能帮你省什么时间）
+
+这是一个"边读边写、边复现边挑错"的个人学习仓库。如果你也在学具身智能/模仿学习，这里的笔记可能比论文解读博客多一层价值：
+
+- **论文 vs 官方代码核对表**：不只复述论文，还逐条核对论文说法与官方实现的实际差异（如 ACT 论文 Algorithm 1 写 MSE、官方代码实为 L1；论文写 decoder 7 层、实际仅 1 层生效）。这类"踩坑点"是读论文时最容易卡住、又没人写的地方。
+- **公式推导与符号表**：关键公式给到直觉解释与推导过程，而不是贴公式了事。
+- **诚实的复现记录**：每个实验都写明证据边界——什么能证明、什么不能证明；无实机不虚构成功率；结论与局限分开列。
+- **成体系的学习路线**：从 ACT 出发 → VLA，每篇笔记标好前置依赖，方便按序跟进。
+
+> **欢迎纠错与交流**：笔记中凡涉及论文数字、消融结论、代码行为的断言，都欢迎指正——我的目标是准确性优先。发现错误或想讨论某篇论文，欢迎提 [Issue](https://github.com/AttetionGan/AI-Embodied-AI-Study/issues) 或 [Discussion](https://github.com/AttetionGan/AI-Embodied-AI-Study/discussions)；每一处纠错都会记入 [更新日志](#更新日志)。
+
 ## 仓库结构
 
 ```
