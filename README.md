@@ -20,6 +20,10 @@
 ```
 .
 ├── README.md                ← 本页（论文清单 + 学习路线 + 结构说明）
+├── scripts/
+│   └── check_repo.py        ← 仓库自检（链接/围栏/公式/表格/编号/索引）
+├── .github/workflows/
+│   └── check.yml            ← CI：每次 push 自动跑自检
 ├── code/                    ← 算法实现代码（随阅读进度逐步添加）
 ├── papers/
 │   ├── _template/           ← 新建论文时复制此目录
@@ -69,6 +73,32 @@ ACT 是一条主线，建议按以下顺序推进（读完在对应项打勾，�
 
 ---
 
+## 自动检查
+
+[![repo-check](https://github.com/AttetionGan/AI-Embodied-AI-Study/actions/workflows/check.yml/badge.svg)](https://github.com/AttetionGan/AI-Embodied-AI-Study/actions/workflows/check.yml)
+
+每次 push（以及 PR）自动运行 [scripts/check_repo.py](scripts/check_repo.py)，由 [.github/workflows/check.yml](.github/workflows/check.yml) 触发。检查七项：
+
+| 检查 | 抓什么 |
+|---|---|
+| 相对链接 / 图片 | 路径解析不到、含空格未 `%20` 编码 |
+| 代码围栏 | ` ``` ` 未闭合 |
+| 块级公式 | `$$` 全文未配对（允许跨行） |
+| 表格 | 某行列数与表头不一致（列数错会导致整表渲染失败） |
+| Mermaid | 块为空、首行不是合法图类型 |
+| papers/ 结构 | 编号跳号、目录名不合 `NN-topic`、目录内无笔记 |
+| 笔记卫生 + 索引 | 残留 `<!-- -->` / `TODO`、README 漏登记某个论文目录 |
+
+本地跑同一条命令即可，无需安装任何依赖（纯 Python 标准库）：
+
+```bash
+python3 scripts/check_repo.py
+```
+
+`papers/_template/` 含占位符与假链接，脚本自动跳过；`code/reproduction_*.md` 里的「待回填」是骨架的合法状态，不在检查范围。
+
+---
+
 ## 更新日志
 
 | 日期 | 内容 |
@@ -82,3 +112,4 @@ ACT 是一条主线，建议按以下顺序推进（读完在对应项打勾，�
 | 2026-09-03 | 图规范升级：ACT 与 SmolVLA 笔记的架构/数据流/流程/历史脉络图由 ASCII 改为 Mermaid；同步更新 [笔记模板](papers/_template/README.md) 与 [paper-study-workflow skill](.opencode/skills/paper-study-workflow/SKILL.md)（Mermaid 惯例 + 防坑说明，算法伪代码框保留 ASCII） |
 | 2026-09-10 | 添加第三篇论文：π0: A Vision-Language-Action Flow Model for General Robot Control（Black et al. / Physical Intelligence, arXiv 2024），完成精读笔记（流匹配 VLA 架构、块状因果注意力、10,000h 跨形态预训练/后训练 recipe、openpi 论文-代码核对表 13 条）；学习路线勾选"延伸对比：π0"并新增 OpenVLA 待办 |
 | 2026-10-27 | 补齐 ACT 与 SmolVLA 笔记缺失的 §12 Discussion Points（ACT 4 条、SmolVLA 5 条），全部锚定论文数字与本工程复现证据（per-horizon 平坦曲线、prior/posterior 差值、async 成功率下降、481 数据集不可复现等），三篇笔记结构与[模板](papers/_template/README.md)对齐；`.gitignore` 忽略 macOS 的 `.DS_Store` |
+| 2026-10-27 | 新增仓库自检 [scripts/check_repo.py](scripts/check_repo.py) 与 [CI](.github/workflows/check.yml)：检查相对链接/图片、围栏闭合、`$$` 配对、表格列数、Mermaid 类型、papers 编号、README 索引漏登；本地 `python3 scripts/check_repo.py` 与 CI 共用同一条命令，纯标准库无依赖 |

@@ -24,6 +24,8 @@ description: Use when the user is studying/learning a paper in this 具身智能
 ```
 .
 ├── README.md                       ← 根索引：仓库结构 + 论文清单表 + 学习路线 + 更新日志
+├── scripts/check_repo.py           ← 仓库自检（链接/围栏/公式/表格/编号/索引）
+├── .github/workflows/check.yml     ← CI：每次 push 自动跑上述自检
 ├── papers/
 │   ├── _template/README.md         ← 笔记模板（唯一权威模板，新建笔记必须复制它）
 │   └── NN-topic/                   ← 每篇论文一个序号目录，如 01-act
@@ -114,8 +116,11 @@ description: Use when the user is studying/learning a paper in this 具身智能
 | 用绝对路径或未转义空格链接 | 仓库内一律相对路径，含空格用 `%20` |
 | 把数据集/checkpoint/notebooks 提交进 git | 遵守 `.gitignore`（`data/`、`notebooks/`、`.omo/` 不入库） |
 | 自己凭印象编模板结构 | 每次先读 `papers/_template/README.md` 与 `01-act` 范本 |
+| 靠肉眼核对链接/表格/Mermaid 语法 | 收尾跑 `python3 scripts/check_repo.py`，CI 也会在 push 时跑同一份 |
 
 ## 验证
 
-- 笔记/复现文档写完后：把根 README 与论文清单中的每个 `.md`/图片链接在仓库内解析一遍；PDF 确实存在于对应目录。
+- 收尾必跑：`python3 scripts/check_repo.py`（纯标准库，本地与 CI 同一条命令）。它会查相对链接/图片解析、围栏闭合、`$$` 配对、表格列数、Mermaid 类型、papers 编号、README 索引漏登；**0 error 才算完成**，warning 需逐条判断是否要修。
+- 手动兜底：PDF 确实存在于对应目录；含空格/非 ASCII 的文件名在链接里已 URL 编码（`%20`、`%CF%80`）。
+- 笔记/复现文档写完后：把根 README 与论文清单中的每个 `.md`/图片链接在仓库内解析一遍。
 - 若有跑得动的命令（如链接检查脚本），运行后确认零错误再报告完成；未引入的既有问题单独说明。
