@@ -2,7 +2,7 @@
 
 具身智能（Embodied AI）算法的阅读笔记与公式推导。从 ACT（Action Chunking with Transformers）出发，按学习路线逐篇推进。
 
-> **English intro**: Personal deep-study notes & reproductions on Embodied AI / imitation learning, from ACT to VLA (SmolVLA). Each paper note comes with math derivations, architecture diagrams, **paper-vs-code discrepancy tables**（论文与官方实现差异核对表）, ablations, and honest reproduction records with clear evidence boundaries（证据边界）.
+> **English intro**: Personal deep-study notes & reproductions on Embodied AI / imitation learning, from ACT to VLA (π0, SmolVLA). Each paper note comes with math derivations, architecture diagrams, **paper-vs-code discrepancy tables**（论文与官方实现差异核对表）, ablations, and honest reproduction records with clear evidence boundaries（证据边界）.
 
 ## 这个仓库有什么不一样？（能帮你省什么时间）
 
@@ -29,9 +29,13 @@
 │       ├── Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware.md
 │       └── Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware.pdf
 │
-│   └── 02-smolvla/          ← SmolVLA (Shukor et al., arXiv 2025)
-│       ├── SmolVLA: A Vision-Language-Action Model for Affordable and Efficient Robotics.md
-│       └── SmolVLA: A Vision-Language-Action Model for Affordable and Efficient Robotics.pdf
+│   ├── 02-smolvla/          ← SmolVLA (Shukor et al., arXiv 2025)
+│   │   ├── SmolVLA: A Vision-Language-Action Model for Affordable and Efficient Robotics.md
+│   │   └── SmolVLA: A Vision-Language-Action Model for Affordable and Efficient Robotics.pdf
+│   │
+│   └── 03-pi0/              ← π0: A Vision-Language-Action Flow Model for General Robot Control (Physical Intelligence, arXiv 2024)
+│       ├── π0: A Vision-Language-Action Flow Model for General Robot Control.md
+│       └── π0: A Vision-Language-Action Flow Model for General Robot Control.pdf
 ```
 
 每篇论文一个子目录，笔记和 PDF 均以论文标题命名。
@@ -44,6 +48,7 @@
 |---|------|------|
 | 1 | [Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware](papers/01-act/Learning%20Fine-Grained%20Bimanual%20Manipulation%20with%20Low-Cost%20Hardware.md) — Zhao et al., RSS 2023 | ✅ 已完成 |
 | 2 | [SmolVLA: A Vision-Language-Action Model for Affordable and Efficient Robotics](papers/02-smolvla/SmolVLA:%20A%20Vision-Language-Action%20Model%20for%20Affordable%20and%20Efficient%20Robotics.md) — Shukor et al., arXiv 2025 | ✅ 已完成 |
+| 3 | [π0: A Vision-Language-Action Flow Model for General Robot Control](papers/03-pi0/%CF%800:%20A%20Vision-Language-Action%20Flow%20Model%20for%20General%20Robot%20Control.md) — Black et al. (Physical Intelligence), arXiv 2024 | ✅ 已完成 |
 
 > 状态: 📝 待读 / 🔍 阅读中 / ✅ 已完成
 
@@ -58,7 +63,8 @@ ACT 是一条主线，建议按以下顺序推进（读完在对应项打勾，�
 - [x] **动手实现**：用 [LeRobot](https://github.com/huggingface/lerobot) 复现 ACT（✅ 已复现，记录见 [code/reproduction_act_aloha.md](code/reproduction_act_aloha.md)）
 - [ ] **对比算法**：Diffusion Policy (Chi et al., RSS 2023)
 - [x] **延伸方向：VLA**：SmolVLA (arXiv 2025) — 紧凑 VLA 架构 + 社区数据预训练 + 异步推理（笔记见 [papers/02-smolvla/](papers/02-smolvla/)，复现 🔄 进行中，记录见 [code/reproduction_smolvla.md](code/reproduction_smolvla.md)）
-- [ ] **延伸对比**：精读 π0 / OpenVLA，对照 SmolVLA 的"小模型+流匹配专家"与 π0 的"大 VLM+扩散"路线差异
+- [x] **延伸对比：π0**：精读 π0 (arXiv 2024) — 大 VLM 骨干 + 流匹配动作专家 + 跨形态预训练（笔记见 [papers/03-pi0/](papers/03-pi0/)）
+- [ ] **延伸对比：OpenVLA**：精读 OpenVLA，对照 π0 的"VLM + 流匹配专家"与 SmolVLA 的"小模型 + 冻结骨干"两条路线差异
 - [ ] **VLA 复现**：用 LeRobot smolvla policy 复现 SmolVLA，与已复现 ACT 在同一任务口径下对比（🔄 进行中）
 
 ---
@@ -74,3 +80,5 @@ ACT 是一条主线，建议按以下顺序推进（读完在对应项打勾，�
 | 2026-09-03 | 添加第二篇论文：SmolVLA: A Vision-Language-Action Model for Affordable and Efficient Robotics（Shukor et al., arXiv 2025），完成精读笔记（紧凑 VLA 架构、社区数据预训练、异步推理、LIBERO/MetaWorld/SO100 结果与 8 组消融）；学习路线勾选 VLA 延伸方向 |
 | 2026-09-03 | 新增 SmolVLA 复现记录骨架 [code/reproduction_smolvla.md](code/reproduction_smolvla.md)（🔄 实验进行中，数据待回填） |
 | 2026-09-03 | 图规范升级：ACT 与 SmolVLA 笔记的架构/数据流/流程/历史脉络图由 ASCII 改为 Mermaid；同步更新 [笔记模板](papers/_template/README.md) 与 [paper-study-workflow skill](.opencode/skills/paper-study-workflow/SKILL.md)（Mermaid 惯例 + 防坑说明，算法伪代码框保留 ASCII） |
+| 2026-09-10 | 添加第三篇论文：π0: A Vision-Language-Action Flow Model for General Robot Control（Black et al. / Physical Intelligence, arXiv 2024），完成精读笔记（流匹配 VLA 架构、块状因果注意力、10,000h 跨形态预训练/后训练 recipe、openpi 论文-代码核对表 13 条）；学习路线勾选"延伸对比：π0"并新增 OpenVLA 待办 |
+| 2026-10-27 | 补齐 ACT 与 SmolVLA 笔记缺失的 §12 Discussion Points（ACT 4 条、SmolVLA 5 条），全部锚定论文数字与本工程复现证据（per-horizon 平坦曲线、prior/posterior 差值、async 成功率下降、481 数据集不可复现等），三篇笔记结构与[模板](papers/_template/README.md)对齐；`.gitignore` 忽略 macOS 的 `.DS_Store` |

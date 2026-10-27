@@ -79,3 +79,6 @@ dmypy.json
 notebooks/
 data/
 .omo/
+
+# macOS
+.DS_Store
